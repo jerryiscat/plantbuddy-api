@@ -8,6 +8,8 @@ struct MainView: View {
         Group {
             if isCheckingAuth {
                 ProgressView("Loading...")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.appBackground)
                     .onAppear {
                         // Small delay to ensure AuthManager is initialized
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -16,10 +18,13 @@ struct MainView: View {
                     }
             } else if authManager.isAuthenticated {
                 ContentView()
+                    .background(Color.appBackground.ignoresSafeArea())
             } else {
                 AuthView()
+                    .background(Color.appBackground.ignoresSafeArea())
             }
         }
+        .background(Color.appBackground.ignoresSafeArea())
     }
 }
 

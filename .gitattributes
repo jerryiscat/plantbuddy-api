@@ -1,2 +1,41 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Files that should not be uploaded/tracked
+# Python cache files
+__pycache__/ export-ignore
+*.pyc export-ignore
+*.pyo export-ignore
+*.pyd export-ignore
+
+# macOS system files
+.DS_Store export-ignore
+.AppleDouble export-ignore
+._* export-ignore
+
+# iOS/Xcode user-specific files
+*.xcuserstate export-ignore
+xcuserdata/ export-ignore
+*.xcuserdatad/ export-ignore
+
+# Environment and secrets
+.env export-ignore
+.env.local export-ignore
+*.log export-ignore
+
+# Database files
+*.db export-ignore
+*.sqlite export-ignore
+db.sqlite3 export-ignore
+
+# Virtual environments
+venv/ export-ignore
+env/ export-ignore
+.venv/ export-ignore
+ENV/ export-ignore
+
+# IDE files
+.vscode/ export-ignore
+.idea/ export-ignore
+*.swp export-ignore
+*.swo export-ignore

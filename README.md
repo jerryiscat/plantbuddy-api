@@ -1,6 +1,8 @@
 # PlantBuddy 🌱
+<img src="plant-buddy-clear.png" alt="PlantBuddy Logo" width="100" />
 
 Plant Buddy is a full-stack iOS application designed to help users track, manage, and maintain their plant collection. It features intelligent scheduling algorithms, an offline-first architecture, and a rich database of plant care information.
+
 
 ## 🚀 Key Features
 - **Smart Scheduling Engine**: Automatically calculates future watering and fertilizing dates based on specific species needs.
@@ -13,6 +15,7 @@ Plant Buddy is a full-stack iOS application designed to help users track, manage
 
 - **Local Notifications**: Deep integration with UserNotifications to deliver timely reminders even when the app is backgrounded.
 
+![Demo GIF](demo.gif)
 
 ## 🛠 Tech Stack
 

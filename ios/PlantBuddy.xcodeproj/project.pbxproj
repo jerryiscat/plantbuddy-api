@@ -36,6 +36,7 @@
 		245262592D67405600AE5EFF /* PlantCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245262582D67405600AE5EFF /* PlantCardView.swift */; };
 		2452625B2D67409200AE5EFF /* PlantGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2452625A2D67409200AE5EFF /* PlantGalleryViewModel.swift */; };
 		2452625D2D6740AE00AE5EFF /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2452625C2D6740AE00AE5EFF /* Plant.swift */; };
+		24C889412EE010AE00D81509 /* PhotoGalleryModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C889402EE010AE00D81509 /* PhotoGalleryModalView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,14 +68,11 @@
 		243B71CB2ECFE33B0026116E /* LogActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogActivityView.swift; sourceTree = "<group>"; };
 		243B71CC2ECFE33B0026116E /* PlantHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantHistoryView.swift; sourceTree = "<group>"; };
 		243B71CD2ECFE33B0026116E /* ScheduleManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManagerView.swift; sourceTree = "<group>"; };
-		2452621B2D65F1C200AE5EFF /* PlantBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = PlantBuddy.app; path = "/Users/jasminezhang/Documents/projects/ios-plant-buddy/PlantBuddy/build/Debug-iphoneos/PlantBuddy.app"; sourceTree = "<absolute>"; };
 		2452621E2D65F1C200AE5EFF /* PlantBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantBuddyApp.swift; sourceTree = "<group>"; };
 		245262202D65F1C200AE5EFF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		245262222D65F1C500AE5EFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		245262252D65F1C600AE5EFF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2452622B2D65F1C600AE5EFF /* PlantBuddyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PlantBuddyTests.xctest; path = "/Users/jasminezhang/Documents/projects/ios-plant-buddy/PlantBuddy/build/Debug-iphoneos/PlantBuddy.app/PlugIns/PlantBuddyTests.xctest"; sourceTree = "<absolute>"; };
 		2452622F2D65F1C600AE5EFF /* PlantBuddyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantBuddyTests.swift; sourceTree = "<group>"; };
-		245262352D65F1C600AE5EFF /* PlantBuddyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PlantBuddyUITests.xctest; path = "/Users/jasminezhang/Documents/projects/ios-plant-buddy/PlantBuddy/build/Debug-iphoneos/PlantBuddyUITests-Runner.app/PlugIns/PlantBuddyUITests.xctest"; sourceTree = "<absolute>"; };
 		245262392D65F1C600AE5EFF /* PlantBuddyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantBuddyUITests.swift; sourceTree = "<group>"; };
 		2452623B2D65F1C600AE5EFF /* PlantBuddyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantBuddyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		245262482D65F23100AE5EFF /* UndoTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoTasksView.swift; sourceTree = "<group>"; };
@@ -88,6 +86,10 @@
 		245262582D67405600AE5EFF /* PlantCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantCardView.swift; sourceTree = "<group>"; };
 		2452625A2D67409200AE5EFF /* PlantGalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantGalleryViewModel.swift; sourceTree = "<group>"; };
 		2452625C2D6740AE00AE5EFF /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
+		24C8893D2EE0081600D81509 /* PlantBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlantBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		24C8893E2EE0081600D81509 /* PlantBuddyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantBuddyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		24C8893F2EE0081600D81509 /* PlantBuddyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantBuddyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		24C889402EE010AE00D81509 /* PhotoGalleryModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoGalleryModalView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,9 @@
 				2452621D2D65F1C200AE5EFF /* PlantBuddy */,
 				2452622E2D65F1C600AE5EFF /* PlantBuddyTests */,
 				245262382D65F1C600AE5EFF /* PlantBuddyUITests */,
+				24C8893D2EE0081600D81509 /* PlantBuddy.app */,
+				24C8893E2EE0081600D81509 /* PlantBuddyTests.xctest */,
+				24C8893F2EE0081600D81509 /* PlantBuddyUITests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,6 +153,7 @@
 				243B71A32ECF03F90026116E /* CareView.swift */,
 				243B71A42ECF03F90026116E /* MockData.swift */,
 				243B71A52ECF03F90026116E /* MyJungleView.swift */,
+				24C889402EE010AE00D81509 /* PhotoGalleryModalView.swift */,
 				243B71A62ECF03F90026116E /* ToolsView.swift */,
 				245262222D65F1C500AE5EFF /* Assets.xcassets */,
 				245262242D65F1C600AE5EFF /* Preview Content */,
@@ -215,7 +221,7 @@
 			);
 			name = PlantBuddy;
 			productName = PlantBuddy;
-			productReference = 2452621B2D65F1C200AE5EFF /* PlantBuddy.app */;
+			productReference = 24C8893D2EE0081600D81509 /* PlantBuddy.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2452622A2D65F1C600AE5EFF /* PlantBuddyTests */ = {
@@ -233,7 +239,7 @@
 			);
 			name = PlantBuddyTests;
 			productName = PlantBuddyTests;
-			productReference = 2452622B2D65F1C600AE5EFF /* PlantBuddyTests.xctest */;
+			productReference = 24C8893E2EE0081600D81509 /* PlantBuddyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		245262342D65F1C600AE5EFF /* PlantBuddyUITests */ = {
@@ -251,7 +257,7 @@
 			);
 			name = PlantBuddyUITests;
 			productName = PlantBuddyUITests;
-			productReference = 245262352D65F1C600AE5EFF /* PlantBuddyUITests.xctest */;
+			productReference = 24C8893F2EE0081600D81509 /* PlantBuddyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -346,6 +352,7 @@
 				2452624F2D65F27100AE5EFF /* ProfileView.swift in Sources */,
 				243B71A72ECF03F90026116E /* CareView.swift in Sources */,
 				243B71A82ECF03F90026116E /* MockData.swift in Sources */,
+				24C889412EE010AE00D81509 /* PhotoGalleryModalView.swift in Sources */,
 				243B71A92ECF03F90026116E /* MyJungleView.swift in Sources */,
 				243B71AA2ECF03F90026116E /* ToolsView.swift in Sources */,
 				243B71A22ECEF5D90026116E /* SignUpSuccessView.swift in Sources */,

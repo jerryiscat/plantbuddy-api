@@ -34,10 +34,10 @@ struct CareView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
                                 Image(systemName: "exclamationmark.triangle.fill")
-                                    .foregroundColor(.red)
+                                    .foregroundColor(Color.plantBuddyDarkerGreen)
                                 Text("Overdue")
                                     .font(.headline)
-                                    .foregroundColor(.red)
+                                    .foregroundColor(Color.plantBuddyDarkerGreen)
                             }
                             
                             ForEach(overdueTasks) { task in
@@ -51,7 +51,7 @@ struct CareView: View {
                             }
                         }
                         .padding()
-                        .background(Color.red.opacity(0.1))
+                        .background(Color.white)
                         .cornerRadius(12)
                         .padding(.horizontal)
                     }
@@ -61,6 +61,7 @@ struct CareView: View {
                         Text("Today")
                             .font(.title2)
                             .bold()
+                            .foregroundColor(Color.plantBuddyDarkerGreen)
                             .padding(.horizontal)
                         
                         if isLoading {
@@ -69,7 +70,7 @@ struct CareView: View {
                                 .padding()
                         } else if todayTasks.isEmpty {
                             Text("No tasks for today! 🎉")
-                                .foregroundColor(.gray)
+                                .foregroundColor(Color.plantBuddyDarkerGreen)
                                 .padding(.horizontal)
                         } else {
                             ForEach(todayTasks) { task in
@@ -96,6 +97,7 @@ struct CareView: View {
                                 Text("Upcoming")
                                     .font(.title2)
                                     .bold()
+                                    .foregroundColor(Color(hex: "E2852E"))
                                 Spacer()
                                 Image(systemName: showUpcoming ? "chevron.up" : "chevron.down")
                             }
@@ -105,7 +107,7 @@ struct CareView: View {
                         if showUpcoming {
                             if upcomingTasks.isEmpty {
                                 Text("No upcoming tasks")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(Color.plantBuddyDarkerGreen)
                                     .padding(.horizontal)
                             } else {
                                 ForEach(upcomingTasks) { task in
@@ -124,6 +126,7 @@ struct CareView: View {
                 }
                 .padding(.vertical)
             }
+            .background(Color.appBackground.ignoresSafeArea())
             .navigationTitle("Care")
             // Note: API calls disabled - using mock data for now
             // Uncomment to enable API fetching:
@@ -233,17 +236,18 @@ struct TaskRowView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(task.plantName)
                     .font(.headline)
+                    .foregroundColor(Color.plantBuddyDarkerGreen)
                 
                 HStack(spacing: 8) {
                     Text(task.taskType.capitalized)
                         .font(.subheadline)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(Color.plantBuddyDarkerGreen)
                     
                     Spacer()
                     
                     Text(task.formattedDueDate)
                         .font(.caption)
-                        .foregroundColor(task.isOverdue ? .red : .secondary)
+                        .foregroundColor(task.isOverdue ? Color.plantBuddyDarkerGreen : Color.plantBuddyDarkGreen)
                 }
             }
             
@@ -270,13 +274,13 @@ struct TaskRowView: View {
                 } else {
                     Image(systemName: "ellipsis.circle.fill")
                         .font(.title3)
-                        .foregroundColor(.blue)
+                        .foregroundColor(Color.plantBuddyMediumGreen)
                 }
             }
         }
         .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(10)
+        .background(Color.white)
+        .cornerRadius(12)
         .padding(.horizontal)
     }
     
@@ -298,15 +302,15 @@ struct TaskRowView: View {
     private var taskColor: Color {
         switch task.taskType {
         case "WATER":
-            return .blue
+            return Color.waterBlue
         case "FERTILIZE":
-            return .green
+            return Color.plantBuddyYellowGreen
         case "REPOTTING":
-            return .brown
+            return Color.plantBuddyOrange
         case "PRUNE":
-            return .orange
+            return Color.plantBuddyDarkGreen
         default:
-            return .gray
+            return Color.plantBuddyDarkerGreen
         }
     }
 }
@@ -318,10 +322,11 @@ struct UndoToastView: View {
     var body: some View {
         HStack {
             Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(.green)
+                .foregroundColor(Color.plantBuddyDarkerGreen)
             
             Text("\(task.taskType.capitalized)ed \(task.plantName)")
                 .font(.subheadline)
+                .foregroundColor(Color.plantBuddyDarkerGreen)
             
             Spacer()
             
@@ -329,7 +334,7 @@ struct UndoToastView: View {
                 onUndo()
             }
             .font(.subheadline)
-            .foregroundColor(.blue)
+            .foregroundColor(Color.plantBuddyMediumGreen)
         }
         .padding()
         .background(Color(.systemBackground))

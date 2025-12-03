@@ -17,203 +17,175 @@ struct ProfileView: View {
     @State private var showAlert = false
     @State private var alertMessage = ""
 
+    // Add a helper for the colors, assuming the extension is in your project
+    private let primaryGreen = Color.plantBuddyMediumGreen
+    private let darkGreen = Color.plantBuddyDarkerGreen
+
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(spacing: 30) {
-                    // Green Thumb Stats
-                    VStack(spacing: 15) {
-                        Image(systemName: "hand.thumbsup.fill")
-                            .font(.system(size: 50))
-                            .foregroundColor(.green)
-                        
-                        Text("Green Thumb Stats")
-                            .font(.title2)
-                            .bold()
-                        
-                        Text("You have kept \(plantsAlive) plants alive for \(daysStreak) days!")
-                            .font(.headline)
-                            .foregroundColor(.green)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal)
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.green.opacity(0.1))
-                    .cornerRadius(12)
-                    .padding(.horizontal)
-                    .padding(.top)
-                    
-                    // User Profile Section
-                    if let userProfile = authManager.userProfile {
-                        VStack(alignment: .leading, spacing: 20) {
-                            Text("Profile")
-                                .font(.headline)
-                                .foregroundColor(.secondary)
-                            
-                            // Username
-                            HStack {
-                                Image(systemName: "person.fill")
-                                    .foregroundColor(.blue)
-                                    .font(.title2)
-
-                                VStack(alignment: .leading) {
-                                    Text("Username")
-                                        .font(.headline)
-                                        .foregroundColor(.gray)
-
-                                    if isEditingUsername {
-                                        TextField(userProfile.username, text: $updatedUsername)
-                                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    } else {
-                                        Text(userProfile.username)
-                                            .font(.title2)
-                                            .fontWeight(.medium)
-                                    }
-                                }
-                                Spacer()
-
-                                Button(action: {
-                                    if isEditingUsername {
-                                        updateUsername()
-                                    }
-                                    isEditingUsername.toggle()
-                                }) {
-                                    Image(systemName: isEditingUsername ? "checkmark.circle.fill" : "pencil.circle")
-                                        .resizable()
-                                        .frame(width: 25, height: 25)
-                                        .foregroundColor(.blue)
-                                }
-                            }
-                            .padding(.horizontal)
-
-                            Divider()
-
-                            // Email
-                            HStack {
-                                Image(systemName: "envelope.fill")
-                                    .foregroundColor(.blue)
-                                    .font(.title2)
-
-                                VStack(alignment: .leading) {
-                                    Text("Email")
-                                        .font(.headline)
-                                        .foregroundColor(.gray)
-
-                                    if isEditingEmail {
-                                        TextField(userProfile.email, text: $updatedEmail)
-                                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    } else {
-                                        Text(userProfile.email)
-                                            .font(.title2)
-                                            .fontWeight(.medium)
-                                    }
-                                }
-                                Spacer()
-
-                                Button(action: {
-                                    if isEditingEmail {
-                                        updateEmail()
-                                    }
-                                    isEditingEmail.toggle()
-                                }) {
-                                    Image(systemName: isEditingEmail ? "checkmark.circle.fill" : "pencil.circle")
-                                        .resizable()
-                                        .frame(width: 25, height: 25)
-                                        .foregroundColor(.blue)
-                                }
-                            }
-                            .padding(.horizontal)
-                        }
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(12)
+        // Use NavigationStack for modern SwiftUI, assuming iOS 16+
+        NavigationStack {
+            // Replaced ScrollView with List for a settings-like appearance
+            List {
+                // --- 1. Green Thumb Stats Section ---
+                VStack(spacing: 15) {
+                    Image(systemName: "hand.thumbsup.fill")
+                        .font(.system(size: 50))
+                        .foregroundColor(primaryGreen)
+                      
+                    Text("Green Thumb Stats")
+                        .font(.title2)
+                        .bold()
+                        .foregroundColor(darkGreen)
+                      
+                    Text("You have kept \(plantsAlive) plants alive for \(daysStreak) days!")
+                        .font(.headline)
+                        .foregroundColor(darkGreen)
+                        .multilineTextAlignment(.center)
                         .padding(.horizontal)
-                    }
-                    
-                    // Preferences Section
-                    VStack(alignment: .leading, spacing: 20) {
-                        Text("Preferences")
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                        
-                        // Watering Reminder Time
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text("Watering Reminder Time")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                            
-                            DatePicker("", selection: $wateringReminderTime, displayedComponents: .hourAndMinute)
-                                .labelsHidden()
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.plantBuddyLightGreen.opacity(0.4))
+                .cornerRadius(12)
+                .listRowBackground(Color.appBackground) // Match background color
+                .listRowSeparator(.hidden) // Remove the list separator for this custom block
+                
+                // --- 2. User Profile Section ---
+                if let userProfile = authManager.userProfile {
+                    Section("Profile") {
+                        // Username Row
+                        HStack {
+                            Image(systemName: "person.fill")
+                                .foregroundColor(.black)
+                                .font(.title2)
+
+                            VStack(alignment: .leading) {
+                                Text("Username")
+                                    .font(.headline)
+                                    .foregroundColor(.black)
+
+                                if isEditingUsername {
+                                    TextField("Enter new username", text: $updatedUsername)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .foregroundColor(darkGreen)
+                                } else {
+                                    Text(userProfile.username)
+                                        .font(.title3)
+                                        .fontWeight(.medium)
+                                        .foregroundColor(.black)
+                                }
+                            }
+                            Spacer()
+
+                            Button(action: {
+                                if isEditingUsername {
+                                    updateUsername()
+                                }
+                                isEditingUsername.toggle()
+                                // Disable other editing when one is active
+                                if isEditingUsername { isEditingEmail = false }
+                            }) {
+                                Image(systemName: isEditingUsername ? "checkmark.circle.fill" : "pencil.circle")
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                                    .foregroundColor(.black)
+                            }
                         }
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(8)
+
+                        // Email Row
+                        HStack {
+                            Image(systemName: "envelope.fill")
+                                .foregroundColor(.black)
+                                .font(.title2)
+
+                            VStack(alignment: .leading) {
+                                Text("Email")
+                                    .font(.headline)
+                                    .foregroundColor(.black)
+
+                                if isEditingEmail {
+                                    TextField("Enter new email", text: $updatedEmail)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .keyboardType(.emailAddress)
+                                        .autocapitalization(.none)
+                                        .foregroundColor(darkGreen)
+                                } else {
+                                    Text(userProfile.email)
+                                        .font(.title3)
+                                        .fontWeight(.medium)
+                                        .foregroundColor(.black)
+                                }
+                            }
+                            Spacer()
+
+                            Button(action: {
+                                if isEditingEmail {
+                                    updateEmail()
+                                }
+                                isEditingEmail.toggle()
+                                // Disable other editing when one is active
+                                if isEditingEmail { isEditingUsername = false }
+                            }) {
+                                Image(systemName: isEditingEmail ? "checkmark.circle.fill" : "pencil.circle")
+                                    .resizable()
+                                    .frame(width: 25, height: 25)
+                                    .foregroundColor(.black)
+                            }
+                        }
+                    } // End Section Profile
+                    .listRowBackground(Color.plantBuddyCream) // Set custom row background
+                }
+                
+                // --- 3. Preferences & Notifications Section ---
+                Section("Settings") {
+                    // Notifications Toggle
+                    Toggle(isOn: $notificationsEnabled) {
+                        Label("Push Notifications", systemImage: "bell.fill").foregroundColor(.black)
                     }
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(12)
-                    .padding(.horizontal)
-                    
-                    // Notification Settings
-                    VStack(alignment: .leading, spacing: 20) {
-                        Text("Notifications")
-                            .font(.headline)
-                            .foregroundColor(.secondary)
-                        
-                        Toggle("Push Notifications", isOn: $notificationsEnabled)
-                            .padding()
-                            .background(Color(.systemGray6))
-                            .cornerRadius(8)
+                    .tint(primaryGreen) // Set the toggle color
+
+                    // Watering Reminder Time
+                    DatePicker(selection: $wateringReminderTime, displayedComponents: .hourAndMinute) {
+                        Label("Reminder Time", systemImage: "clock.fill").foregroundColor(.black)
                     }
-                    .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(12)
-                    .padding(.horizontal)
-                    
-                    // Export Data
+                } // End Section Settings
+                .listRowBackground(Color.plantBuddyCream)
+                
+                // --- 4. Data Management ---
+                Section {
+                    // Export Data Button
                     Button(action: {
                         exportData()
                     }) {
-                        HStack {
-                            Image(systemName: "square.and.arrow.up")
-                            Text("Export Data")
-                        }
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(12)
+                        Label("Export Data", systemImage: "square.and.arrow.up")
+                            .foregroundColor(.black)
                     }
-                    .padding(.horizontal)
-                    
-                    // Sign Out
-                    Button(action: {
+                }
+                .listRowBackground(Color.plantBuddyCream)
+
+            } // End List
+            .background(Color.appBackground.ignoresSafeArea())
+            .scrollContentBackground(.hidden) // Hide default list background (needed for custom List background)
+            .navigationTitle("Profile")
+            .toolbar {
+                // Sign Out Button in Toolbar (Common pattern for profile screens)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Sign Out", role: .destructive) {
                         authManager.signOut()
-                    }) {
-                        Text("Sign Out")
-                            .font(.headline)
-                            .bold()
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.red)
-                            .cornerRadius(12)
                     }
-                    .padding(.horizontal)
-                    .padding(.bottom, 30)
+                    .foregroundColor(.red) // Explicitly set color for clarity
                 }
             }
-            .navigationTitle("Profile")
             .onAppear {
                 if let userProfile = authManager.userProfile {
+                    // Initialize state variables on appear
                     updatedUsername = userProfile.username
                     updatedEmail = userProfile.email
                 } else {
                     authManager.fetchUserProfile()
                 }
             }
+            // Alerts remain the same
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Update Failed"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
             }
@@ -222,7 +194,7 @@ struct ProfileView: View {
             } message: {
                 Text("Your plant data has been exported successfully!")
             }
-        }
+        } // End NavigationStack
     }
 
     func updateUsername() {

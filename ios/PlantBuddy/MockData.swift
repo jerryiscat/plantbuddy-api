@@ -16,7 +16,7 @@ struct MockData {
                 species: "Monstera Deliciosa",
                 perenualId: nil,
                 careLevel: "easy",
-                imageUrl: nil,
+                imageUrl: "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcRHQkxf2BzWYpnkAIp7exmT3CLxTRy5hV6tiCdPv2SU5sfaG5g80m6kf9HZxXIQE9kgNnX1AsfPXzPFmZRa21kqNzV3ZN3lrn_st7O4ZhdUZPCSoUw",   // NEW
                 careTips: "Water when top inch of soil is dry",
                 isDead: false,
                 createdAt: formatter.string(from: now),
@@ -30,8 +30,15 @@ struct MockData {
                         isActive: true
                     )
                 ],
-                photos: nil,
-                coverImageUrl: nil,
+                photos: [
+                    PlantPhoto(
+                        id: 101,
+                        imageUrl: "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcRHQkxf2BzWYpnkAIp7exmT3CLxTRy5hV6tiCdPv2SU5sfaG5g80m6kf9HZxXIQE9kgNnX1AsfPXzPFmZRa21kqNzV3ZN3lrn_st7O4ZhdUZPCSoUw",
+                        uploadedAt: formatter.string(from: now),
+                        isCover: true
+                    ),
+                ],
+                coverImageUrl: "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcRHQkxf2BzWYpnkAIp7exmT3CLxTRy5hV6tiCdPv2SU5sfaG5g80m6kf9HZxXIQE9kgNnX1AsfPXzPFmZRa21kqNzV3ZN3lrn_st7O4ZhdUZPCSoUw",
                 nextWaterDate: formatter.string(from: nextWater1)
             ),
             Plant(
@@ -40,7 +47,7 @@ struct MockData {
                 species: "Sansevieria",
                 perenualId: nil,
                 careLevel: "easy",
-                imageUrl: nil,
+                imageUrl: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcTu90gFkRP637Esu0OJrMLA0n8LTKlCbN0Wrm7MLuByM1lK5FG_42tWf8WARvWDGUDje8PuAHS88YhALzu9Oj4s3x4-K1sat8G1Dv9shha0qaskAv0",
                 careTips: "Very low maintenance",
                 isDead: false,
                 createdAt: formatter.string(from: now),
@@ -55,7 +62,7 @@ struct MockData {
                     )
                 ],
                 photos: nil,
-                coverImageUrl: nil,
+                coverImageUrl: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcTu90gFkRP637Esu0OJrMLA0n8LTKlCbN0Wrm7MLuByM1lK5FG_42tWf8WARvWDGUDje8PuAHS88YhALzu9Oj4s3x4-K1sat8G1Dv9shha0qaskAv0",
                 nextWaterDate: formatter.string(from: nextWater2)
             ),
             Plant(
@@ -64,7 +71,7 @@ struct MockData {
                 species: "Epipremnum Aureum",
                 perenualId: 300,
                 careLevel: "easy",
-                imageUrl: nil,
+                imageUrl: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcSTtWKzWPF5fxK2TR1Jr2dvMVNSJMnbUr2XipOxqBcQM2UMx4eD6_N2IiaQ0MUgYmTVG_AEYnryOnpfKtoxpElG-ReUD1HXbu-E4mLzdZnM3uLlPo0",
                 careTips: nil,
                 isDead: false,
                 createdAt: formatter.string(from: now),
@@ -78,8 +85,21 @@ struct MockData {
                         isActive: true
                     )
                 ],
-                photos: nil,
-                coverImageUrl: nil,
+                photos: [
+                    PlantPhoto(
+                        id: 103,
+                        imageUrl: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcSTtWKzWPF5fxK2TR1Jr2dvMVNSJMnbUr2XipOxqBcQM2UMx4eD6_N2IiaQ0MUgYmTVG_AEYnryOnpfKtoxpElG-ReUD1HXbu-E4mLzdZnM3uLlPo0",
+                        uploadedAt: formatter.string(from: now),
+                        isCover: true
+                    ),
+                    PlantPhoto(
+                        id: 104,
+                        imageUrl: "https://lh3.googleusercontent.com/gg-dl/ABS2GSm9A2cGNk0Aqf0IGFX5K0r3QL9lr4MdZsn8RwS7ySvXHoZ4Id_VYRHvnMiurPTGE_3lTP_q_WlIlShx713b32S7i-sSrIrKShrUygCKKgAoEpjn9CefRkfWd9-B4QEWXgOvSD4nVk9L8wNuUeQ6d6Mq_-hI8Fudl7iotenrNQVIaN3V=s1024-rj",
+                        uploadedAt: formatter.string(from: now),
+                        isCover: false
+                    )
+                ],
+                coverImageUrl: "https://encrypted-tbn3.gstatic.com/licensed-image?q=tbn:ANd9GcSTtWKzWPF5fxK2TR1Jr2dvMVNSJMnbUr2XipOxqBcQM2UMx4eD6_N2IiaQ0MUgYmTVG_AEYnryOnpfKtoxpElG-ReUD1HXbu-E4mLzdZnM3uLlPo0",
                 nextWaterDate: nil
             )
         ]

@@ -48,10 +48,16 @@ class ScheduleSerializer(serializers.ModelSerializer):
         read_only_fields = ['created_at', 'updated_at']
 
 class PlantPhotoSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+    
     class Meta:
         model = PlantPhoto
-        fields = ['id', 'image_url', 'uploaded_at', 'is_cover']
+        fields = ['id', 'image', 'image_url', 'uploaded_at', 'is_cover']
         read_only_fields = ['uploaded_at']
+    
+    def get_image_url(self, obj):
+        """Returns the image URL from either uploaded file or external URL"""
+        return obj.get_image_url()
 
 class ActivityLogSerializer(serializers.ModelSerializer):
     photo_url = serializers.SerializerMethodField()
@@ -63,7 +69,7 @@ class ActivityLogSerializer(serializers.ModelSerializer):
     
     def get_photo_url(self, obj):
         if obj.photo:
-            return obj.photo.image_url
+            return obj.photo.get_image_url()
         return None
 
 class PlantSerializer(serializers.ModelSerializer):

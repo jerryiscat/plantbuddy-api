@@ -85,9 +85,9 @@ struct AuthView: View {
                             .bold()
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.blue)
+                            .background(Color.plantBuddyMediumGreen)
                             .foregroundColor(.white)
-                            .cornerRadius(10)
+                            .cornerRadius(12)
                     }
                     .padding(.horizontal)
                     .padding(.top, 10)
@@ -98,7 +98,7 @@ struct AuthView: View {
                             showForgotPassword = true
                         }) {
                             Text("Forgot Password?")
-                                .foregroundColor(.blue)
+                                .foregroundColor(Color.plantBuddyMediumGreen)
                                 .font(.subheadline)
                         }
                         .padding(.top, 5)
@@ -114,13 +114,14 @@ struct AuthView: View {
                         password = ""
                     }) {
                         Text(isSignUp ? "Already have an account? Sign In" : "Don't have an account? Sign Up")
-                            .foregroundColor(.blue)
+                            .foregroundColor(Color.plantBuddyDarkerGreen)
                             .font(.subheadline)
                     }
                     .padding(.top, 10)
                 }
                 .padding(.vertical, 20)
             }
+            .background(Color.appBackground.ignoresSafeArea())
             .sheet(isPresented: $showForgotPassword) {
                 ForgotPasswordView(
                     email: $forgotPasswordEmail,
@@ -230,9 +231,9 @@ struct ForgotPasswordView: View {
                             .padding()
                     }
                 }
-                .background(Color.blue)
+                .background(Color.plantBuddyMediumGreen)
                 .foregroundColor(.white)
-                .cornerRadius(10)
+                .cornerRadius(12)
                 .padding(.horizontal)
                 .disabled(isLoading || email.isEmpty)
                 

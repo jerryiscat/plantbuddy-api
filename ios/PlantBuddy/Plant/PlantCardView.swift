@@ -19,19 +19,19 @@ struct PlantCardView: View {
                     Image(systemName: "leaf.fill")
                         .resizable()
                         .scaledToFit()
-                        .foregroundColor(.green)
+                        .foregroundColor(Color.plantBuddyMediumGreen)
                         .padding(20)
                 }
             }
-            .frame(height: 150)
-            .frame(maxWidth: .infinity)
-            .background(Color.gray.opacity(0.1))
+            .frame(width: 150, height: 150)
+            .aspectRatio(1, contentMode: .fill) // Square crop
+            .background(Color.plantBuddyLightGreen.opacity(0.3))
             .clipShape(RoundedRectangle(cornerRadius: 12))
             
             // Plant Name
             Text(plant.name)
                 .font(.headline)
-                .foregroundColor(.primary)
+                .foregroundColor(Color.plantBuddyDarkerGreen)
                 .lineLimit(1)
             
             // Next Water Date
@@ -39,15 +39,15 @@ struct PlantCardView: View {
                 HStack(spacing: 4) {
                     Image(systemName: "drop.fill")
                         .font(.caption)
-                        .foregroundColor(.blue)
+                        .foregroundColor(Color.plantBuddyMediumGreen)
                     Text("Water: \(formatDate(nextWater))")
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(Color.plantBuddyDarkerGreen)
                 }
             } else {
                 Text("No schedule")
                     .font(.caption)
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color.plantBuddyDarkerGreen.opacity(0.6))
             }
             
             // Care Level Badge
@@ -74,9 +74,9 @@ struct PlantCardView: View {
             }
         }
         .padding(8)
-        .background(Color(.systemBackground))
+        .background(Color.white)
         .cornerRadius(12)
-        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+        .shadow(color: Color.plantBuddyDarkGreen.opacity(0.15), radius: 5, x: 0, y: 2)
     }
     
     private func formatDate(_ date: Date) -> String {
@@ -97,13 +97,13 @@ struct PlantCardView: View {
     private func careLevelColor(_ level: String) -> Color {
         switch level.lowercased() {
         case "easy":
-            return .green
+            return Color.plantBuddyMediumGreen
         case "moderate":
-            return .orange
+            return Color.plantBuddyOrange
         case "hard":
-            return .red
+            return Color.plantBuddyDarkerGreen
         default:
-            return .gray
+            return Color.plantBuddyDarkGreen
         }
     }
 }

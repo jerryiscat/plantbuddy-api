@@ -46,6 +46,7 @@ struct ToolsView: View {
                 }
                 .padding()
             }
+            .background(Color.appBackground.ignoresSafeArea())
             .navigationTitle("Tools")
             .sheet(isPresented: $showLightMeter) {
                 LightMeterView()
@@ -104,14 +105,14 @@ struct ToolCardView: View {
                     HStack {
                         Text(title)
                             .font(.headline)
-                            .foregroundColor(.primary)
+                            .foregroundColor(Color.plantBuddyDarkerGreen)
                         
                         if let badge = badge {
                             Text(badge)
                                 .font(.caption)
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 4)
-                                .background(Color.red)
+                                .background(Color.plantBuddyDarkerGreen)
                                 .foregroundColor(.white)
                                 .clipShape(Capsule())
                         }
@@ -119,7 +120,7 @@ struct ToolCardView: View {
                     
                     Text(description)
                         .font(.subheadline)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(Color.plantBuddyDarkerGreen.opacity(0.8))
                         .multilineTextAlignment(.leading)
                 }
                 
@@ -129,8 +130,9 @@ struct ToolCardView: View {
                     .foregroundColor(.gray)
             }
             .padding()
-            .background(Color(.systemGray6))
+            .background(Color.white)
             .cornerRadius(12)
+            .shadow(color: Color.plantBuddyDarkGreen.opacity(0.1), radius: 3, x: 0, y: 2)
         }
     }
 }
@@ -175,7 +177,7 @@ struct LightMeterView: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color.plantBuddyMediumGreen)
                     .cornerRadius(12)
                 }
                 .padding(.horizontal)
@@ -244,9 +246,10 @@ struct PlantDoctorView: View {
                         VStack(spacing: 20) {
                             Image(systemName: "photo.fill")
                                 .font(.system(size: 60))
-                                .foregroundColor(.blue)
+                                .foregroundColor(Color.plantBuddyMediumGreen)
                             Text("Select Photo")
                                 .font(.headline)
+                                .foregroundColor(Color.plantBuddyDarkGreen)
                         }
                         .frame(maxWidth: .infinity)
                         .frame(height: 200)

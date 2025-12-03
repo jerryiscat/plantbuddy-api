@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ContentView: View {
+    
     var body: some View {
         TabView {
             MyJungleView()
@@ -34,6 +36,7 @@ struct ContentView: View {
                     Text("Profile")
                 }
         }
+        .background(Color.appBackground.ignoresSafeArea())
     }
 }
 

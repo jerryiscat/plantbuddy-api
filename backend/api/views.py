@@ -12,6 +12,7 @@ from django.utils import timezone
 from django.db.models import Q
 from datetime import timedelta, date
 import requests
+import base64
 from .models import User, Plant, Schedule, ActivityLog, PlantPhoto
 from .serializers import (
     UserSerializer, PlantSerializer, ScheduleSerializer, 
@@ -53,6 +54,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=400)
 
 class PlantViewSet(viewsets.ModelViewSet):
+    queryset = Plant.objects.all()
     serializer_class = PlantSerializer
     permission_classes = [IsAuthenticated]
 
@@ -101,8 +103,8 @@ class PlantViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(plants, many=True)
         return Response(serializer.data)
     
-    @action(detail=True, methods=['post'])
-    def action(self, request, pk=None):
+    @action(detail=True, methods=['post'], url_path='action')
+    def perform_action(self, request, pk=None):
         """
         POST /api/plants/{id}/action - The Most Important Endpoint
         Input: { "action_type": "WATER", "notes": "Optional notes" }
@@ -291,17 +293,28 @@ class PlantViewSet(viewsets.ModelViewSet):
     def add_photo(self, request, pk=None):
         """
         POST /api/plants/{id}/photos/ - Add a photo to the plant gallery
+        Accepts either:
+        - multipart/form-data with 'image' file field
+        - JSON with 'image_url' field
         """
         plant = self.get_object()
-        image_url = request.data.get('image_url')
         
-        if not image_url:
-            return Response({'error': 'image_url is required'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        photo = PlantPhoto.objects.create(
-            plant=plant,
-            image_url=image_url
-        )
+        # Check if image file was uploaded
+        if 'image' in request.FILES:
+            image_file = request.FILES['image']
+            photo = PlantPhoto.objects.create(
+                plant=plant,
+                image=image_file
+            )
+        # Otherwise check for image_url
+        elif 'image_url' in request.data:
+            image_url = request.data.get('image_url')
+            photo = PlantPhoto.objects.create(
+                plant=plant,
+                image_url=image_url
+            )
+        else:
+            return Response({'error': 'Either image file or image_url is required'}, status=status.HTTP_400_BAD_REQUEST)
         
         # If this is the first photo, set it as cover
         if not plant.cover_photo:
@@ -411,6 +424,75 @@ def search_perenual(request):
         return Response(response.json(), status=status.HTTP_200_OK)
     except requests.RequestException as e:
         return Response({'error': f'Failed to fetch from Perenual: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def identify_plant(request):
+    """
+    POST /api/identify/ - Identify a plant from an uploaded image or image URL.
+
+    Accepts multipart/form-data with 'image' file field, or JSON with 'image_url'.
+
+    This endpoint attempts to call the Plant.id API if PLANT_ID_API_KEY is configured in settings.
+    If not configured, it returns a 501 with instructions on how to enable image identification.
+    """
+    # Validate input
+    image_b64 = None
+    if 'image' in request.FILES:
+        try:
+            image_bytes = request.FILES['image'].read()
+            image_b64 = base64.b64encode(image_bytes).decode('utf-8')
+        except Exception as e:
+            return Response({'error': f'Failed to read uploaded image: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+    elif request.data.get('image_url'):
+        image_url = request.data.get('image_url')
+        try:
+            r = requests.get(image_url, timeout=10)
+            r.raise_for_status()
+            image_b64 = base64.b64encode(r.content).decode('utf-8')
+        except requests.RequestException as e:
+            return Response({'error': f'Failed to fetch image from URL: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({'error': 'Either an image file (multipart/form-data) or image_url is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+    # Check for Plant.id API key
+    api_key = getattr(settings, 'PLANT_ID_API_KEY', '')
+    if not api_key:
+        return Response({
+            'error': 'Plant identification not configured on server. Set PLANT_ID_API_KEY in settings.',
+            'hint': 'You can obtain an API key from https://plant.id or configure a hosted model. For development, set PLANT_ID_API_KEY in backend/plantbuddy/settings.py.'
+        }, status=501)
+
+    payload = {
+        'api_key': api_key,
+        'images': [image_b64],
+        'modifiers': ['crops_fast', 'similar_images'],
+        'plant_language': 'en',
+        'plant_details': ['common_names', 'url', 'wiki_description', 'taxonomy']
+    }
+
+    try:
+        resp = requests.post('https://api.plant.id/v2/identify', json=payload, timeout=30)
+        resp.raise_for_status()
+        data = resp.json()
+
+        suggestions = data.get('suggestions', [])
+        if not suggestions:
+            return Response({'message': 'No suggestions returned from identification service', 'raw': data}, status=status.HTTP_200_OK)
+
+        top = suggestions[0]
+        result = {
+            'scientific_name': top.get('plant_name'),
+            'probability': top.get('probability'),
+            'common_names': top.get('plant_details', {}).get('common_names', []),
+            'taxonomy': top.get('plant_details', {}).get('taxonomy', {}),
+            'raw_suggestion': top
+        }
+
+        return Response({'top_suggestion': result, 'raw': data}, status=status.HTTP_200_OK)
+    except requests.RequestException as e:
+        return Response({'error': f'Error querying Plant.id: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer

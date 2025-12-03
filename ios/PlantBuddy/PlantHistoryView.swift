@@ -94,12 +94,12 @@ struct ActivityRowView: View {
     
     private var activityColor: Color {
         switch activity.actionType {
-        case "WATER": return .blue
+        case "WATER": return Color.plantBuddyMediumGreen
         case "FERTILIZE": return .green
         case "REPOTTING": return .brown
         case "PRUNE": return .orange
         case "SNOOZE": return .orange
-        case "SKIPPED_RAIN": return .blue
+        case "SKIPPED_RAIN": return Color.plantBuddyMediumGreen
         case "PHOTO": return .purple
         case "NOTE": return .gray
         default: return .gray

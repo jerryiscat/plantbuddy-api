@@ -10,7 +10,8 @@ class User(AbstractUser):
 # Plant Photo Model - Gallery of photos for each plant
 class PlantPhoto(models.Model):
     plant = models.ForeignKey('Plant', on_delete=models.CASCADE, related_name='photos')
-    image_url = models.TextField(help_text="URL to the photo")
+    image = models.ImageField(upload_to='plant_photos/', blank=True, null=True, help_text="Uploaded image file")
+    image_url = models.TextField(blank=True, null=True, help_text="External URL to the photo (if not using file upload)")
     uploaded_at = models.DateTimeField(auto_now_add=True)
     is_cover = models.BooleanField(default=False, help_text="Is this the cover photo?")
     
@@ -19,6 +20,12 @@ class PlantPhoto(models.Model):
     
     def __str__(self):
         return f"Photo for {self.plant.name}"
+    
+    def get_image_url(self):
+        """Returns the image URL - either from uploaded file or external URL"""
+        if self.image:
+            return self.image.url
+        return self.image_url
 
 # Plant Model
 class Plant(models.Model):
@@ -49,10 +56,10 @@ class Plant(models.Model):
     def get_cover_image_url(self):
         """Returns the cover photo URL, or first photo, or legacy image_url"""
         if self.cover_photo:
-            return self.cover_photo.image_url
+            return self.cover_photo.get_image_url()
         first_photo = self.photos.first()
         if first_photo:
-            return first_photo.image_url
+            return first_photo.get_image_url()
         return self.image_url
 
 # Schedule Model - The rules engine

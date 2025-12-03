@@ -12,6 +12,14 @@ struct PlantPhoto: Identifiable, Codable {
         case uploadedAt = "uploaded_at"
         case isCover = "is_cover"
     }
+    
+    var fullImageUrl: String {
+        // If URL is relative (starts with /), prepend base URL
+        if imageUrl.hasPrefix("/") {
+            return "http://192.168.4.23:8000\(imageUrl)"
+        }
+        return imageUrl
+    }
 }
 
 struct Schedule: Codable {

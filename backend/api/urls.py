@@ -9,6 +9,7 @@ from .views import (
     request_password_reset, confirm_password_reset,
     tasks_today, search_perenual
 )
+from .views import identify_plant
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -29,4 +30,5 @@ urlpatterns = [
     
     # External Data
     path('search/perenual/', search_perenual, name='search_perenual'),
+    path('identify/', identify_plant, name='identify_plant'),
 ]
